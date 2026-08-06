@@ -1,6 +1,14 @@
 import "./LoginPage.css"
+import EyeOffIcon from "../assets/eye-off.svg?react"
+import EyeIcon from "../assets/eye.svg?react"
+import { useState } from "react"
 
 function LoginPage() {
+    const [showPassword, setShowPassword] = useState(false)
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword)
+    }
     return (
         <div className="login_page">
             <div className="login_container">
@@ -13,7 +21,10 @@ function LoginPage() {
                     <form className="login_form" action="">
                         <div className="login_form_inputbox">
                             <input type="text" placeholder='Username' />
-                            <input type="password" placeholder='Password' />
+                            <div className="password_box">
+                                <input type={showPassword ? "text" : "password"} placeholder='Password' />
+                                <button type="button" className="eye_button" onClick={togglePasswordVisibility}>{showPassword ? <EyeOffIcon className="eye_icon" /> : <EyeIcon className="eye_icon" />}</button>
+                            </div>
                         </div>
                         <div className="login_form_mid">
                             <hr /><span>or</span><hr />

@@ -1,3 +1,8 @@
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+    display: none;
+}
+
 .login_page{
   height: 100vh;
   background: linear-gradient(to bottom, #e6f0ff 0%, #ffffff 50%, #ffe6eb 100%);
@@ -41,6 +46,38 @@
   padding: 10px;
   border: 1px solid #e9ebf0;
   border-radius: 5px;
+}
+
+.password_box{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+.password_box input{
+    flex: 1;
+}
+
+.eye_button{
+    right: 10px;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+.eye_icon{
+    width: 20px;
+    height: 20px;
+    color: #7C828D;
+}
+
+.password_box input{
+    padding-right: 30px;
 }
 
 .login_button{
