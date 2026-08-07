@@ -3,7 +3,7 @@ input[type="password"]::-ms-clear {
     display: none;
 }
 
-.login_page{
+.signin_page{
   height: 100vh;
   background: linear-gradient(to bottom, #e6f0ff 0%, #ffffff 50%, #ffe6eb 100%);
   display: flex;
@@ -11,14 +11,14 @@ input[type="password"]::-ms-clear {
   align-items: center;
 }
 
-.login_header{
+.signin_header{
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 40px;
 }
 
-.login_container{
+.signin_container{
   margin-top: 60px;
   background: #ffffff;
   border-radius: 20px;
@@ -27,7 +27,7 @@ input[type="password"]::-ms-clear {
   border: 1px solid #e9ebf0;
 }
 
-.login_form{
+.signin_form{
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -35,14 +35,14 @@ input[type="password"]::-ms-clear {
   margin-top: 20px;
 }
 
-.login_form_inputbox{
+.signin_form_inputbox{
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
   margin-bottom: 20px;
 }
 
-.login_form_inputbox input{
+.signin_form_inputbox input{
   padding: 10px;
   border: 1px solid #e9ebf0;
   border-radius: 5px;
@@ -80,47 +80,53 @@ input[type="password"]::-ms-clear {
     padding-right: 30px;
 }
 
-.login_button{
+.signin_button{
   padding: 10px;
-  background-color: gray;
+  background-color: #000000;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-weight: semi-bold;
+  transition: 0.2s;
 }
 
-.login_header h3{
+.signin_button:disabled{
+  background-color: #7C828D;
+  cursor: not-allowed;
+}
+
+.signin_header h3{
   font-size: 24px;
   margin-top: 10px;
 }
 
-.login_header p{
+.signin_header p{
   font-size: 12px;
   color: #7C828D;
   margin-top: 5px;
 }
 
-.login_header p a{
+.signin_header p a{
   color: #7B68EE;
   text-decoration: none;
 }
 
-.login_form_mid{
+.signin_form_mid{
     display: flex;
     align-items: center;
     gap: 10px;
     margin-bottom: 20px;
 }
 
-.login_form_mid hr{
+.signin_form_mid hr{
     flex: 1;
     border: none;
     height: 1px;
     background-color: #7c828d;
 }
 
-.login_form_mid span{
+.signin_form_mid span{
     white-space: nowrap;
     color: #7c828d;
 }
@@ -157,4 +163,10 @@ input[type="password"]::-ms-clear {
     color: black;
     font-size: 12px;
     text-decoration: none;
+}
+
+.error_message {
+    color: red;
+    font-size: 12px;
+    margin-left: 10px;
 }
