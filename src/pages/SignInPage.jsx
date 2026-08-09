@@ -16,14 +16,14 @@ function SignInPage() {
 
     const handlePasswordChange = (e) => {
         setPassword(e.target.value)
-        handlePasswordBlur()
+        handlePasswordErrorMessage(e.target.value)
     }
 
     const handlePasswordBlur = () => {
-        if (password.length < 8 && password.trim() !== "") {
+        if (password.trim() === "") {
+            setErrorMessage("Password is required.");   
+        } else if (password.length < 8 && password.trim() !== "") {
             setErrorMessage("Password must be at least 8 characters long.");
-        } else if (password.length == 0 && password.trim() === "") {
-            setErrorMessage("Password is required.");
         } else {
             setErrorMessage("");
         }
@@ -32,6 +32,17 @@ function SignInPage() {
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword)
     }
+
+    const handlePasswordErrorMessage = (pass) => {
+        if (pass.trim() === "" && errorMessage !== "") {
+            setErrorMessage("Password is required.");
+        } else if (pass.length < 8 && pass.trim() !== "" && errorMessage !== "") {
+            setErrorMessage("Password must be at least 8 characters long.");
+        } else {
+            setErrorMessage("");
+        }
+    }
+
     return (
         <div className="signin_page">
             <div className="signin_container">

@@ -39,7 +39,7 @@ input[type="password"]::-ms-clear {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .signup_form_inputbox input{
@@ -120,4 +120,47 @@ input[type="password"]::-ms-clear {
 .signup_header p a{
   color: #7B68EE;
   text-decoration: none;
+}
+
+.error_message {
+    color: red;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.signup_form_mid{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.signup_form_mid hr{
+    flex: 1;
+    border: none;
+    height: 1px;
+    background-color: #7c828d;
+}
+
+.signup_form_mid span{
+    white-space: nowrap;
+    color: #7c828d;
+}
+
+#google{
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    border: 1px solid #e9ebf0;
+    color: black;
+    width: 100%;
+    position: relative;
+}
+
+#google img{
+    left: 10px;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    transform: translateY(-50%);
 }
