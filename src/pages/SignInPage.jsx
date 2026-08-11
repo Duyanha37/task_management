@@ -43,6 +43,26 @@ function SignInPage() {
         }
     }
 
+    const Login = async (event) => {
+        event.preventDefault();
+
+        try {
+            const response = await fetch("http://localhost:8080/api/accounts/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ username, password })
+        });
+        if (response.ok) {
+            const data = await response.json();
+            console.log("Login successful");
+        }
+        } catch (error) {
+            console.error("Error during login:", error);
+        }
+    }
+
     return (
         <div className="signin_page">
             <div className="signin_container">
