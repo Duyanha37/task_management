@@ -2,13 +2,18 @@ import "./SignInPage.css"
 import EyeOffIcon from "../assets/eye-off.svg?react"
 import EyeIcon from "../assets/eye.svg?react"
 import { useState } from "react"
+import { AuthContext } from "../contexts/AuthContext.jsx"
+import { useContext } from "react"
+import { useNavigate } from "react-router-dom"
 
 function SignInPage() {
     const [showPassword, setShowPassword] = useState(false)
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [errorMessage, setErrorMessage] = useState("")
-    const isFormValid = username.trim() !== "" && password.trim() !== "";
+    const [isFormValid, setIsFormValid] = useState(false)
+    const { setAccessToken } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const handleUsernameChange = (e) => {
         setUsername(e.target.value)
@@ -17,13 +22,15 @@ function SignInPage() {
     const handlePasswordChange = (e) => {
         setPassword(e.target.value)
         handlePasswordErrorMessage(e.target.value)
+        setIsFormValid(username.trim() !== "" && e.target.value.trim() !== "" && e.target.value.length >= 8)
+
     }
 
     const handlePasswordBlur = () => {
         if (password.trim() === "") {
-            setErrorMessage("Password is required.");   
+            setErrorMessage("Password là bắt buộc.");
         } else if (password.length < 8 && password.trim() !== "") {
-            setErrorMessage("Password must be at least 8 characters long.");
+            setErrorMessage("Password phải có ít nhất 8 ký tự.");
         } else {
             setErrorMessage("");
         }
@@ -35,32 +42,42 @@ function SignInPage() {
 
     const handlePasswordErrorMessage = (pass) => {
         if (pass.trim() === "" && errorMessage !== "") {
-            setErrorMessage("Password is required.");
+            setErrorMessage("Password là bắt buộc.");
         } else if (pass.length < 8 && pass.trim() !== "" && errorMessage !== "") {
-            setErrorMessage("Password must be at least 8 characters long.");
+            setErrorMessage("Password phải có ít nhất 8 ký tự.");
         } else {
             setErrorMessage("");
         }
     }
 
-    const Login = async (event) => {
+    const LoginButtonClick = async (event) => {
         event.preventDefault();
 
         try {
-            const response = await fetch("http://localhost:8080/api/accounts/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ username, password })
-        });
-        if (response.ok) {
+            const response = await fetch("http://localhost:3000/api/accounts/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ username, password })
+            });
             const data = await response.json();
-            console.log("Login successful");
-        }
+            if (response.ok) {
+                console.log("Login successful");
+                setAccessToken(data.accesstoken);
+                navigate("/home");
+
+            } else {
+                console.log("Login failed:", data.error);
+                setErrorMessage(data.error);
+            }
         } catch (error) {
             console.error("Error during login:", error);
         }
+    }
+
+    function handleSignUpClick() {
+        navigate("/signup");
     }
 
     return (
@@ -68,13 +85,13 @@ function SignInPage() {
             <div className="signin_container">
                 <div className="signin_header">
                     <img src="src\assets\logo.svg" alt="" />
-                    <h3>Welcome back!</h3>
-                    <p>Don't have an account? <a href="#">Sign up</a></p>
+                    <h3>Chào mừng bạn!</h3>
+                    <p>Bạn không có tài khoản? <a href="#" onClick={handleSignUpClick}>Đăng ký</a></p>
                 </div>
                 <div>
-                    <form className="signin_form" action="">
+                    <form className="signin_form" action="" onSubmit={LoginButtonClick}>
                         <div className="signin_form_inputbox">
-                            <input type="text" placeholder='Username' value={username} onChange={handleUsernameChange} autoFocus/>
+                            <input type="text" placeholder='Username' value={username} onChange={handleUsernameChange} autoFocus />
                             <div className="password_box">
                                 <input type={showPassword ? "text" : "password"} placeholder='Password' value={password} onChange={handlePasswordChange} onBlur={handlePasswordBlur} />
                                 <button type="button" className="eye_button" onClick={togglePasswordVisibility}>{showPassword ? <EyeOffIcon className="eye_icon" /> : <EyeIcon className="eye_icon" />}</button>
@@ -87,9 +104,9 @@ function SignInPage() {
                         <div className="google_box">
                             <button className='signin_button' id="google"><img src="src\assets\google.svg" alt="Google Icon" />Tiếp tục sử dụng dịch vụ bằng Google</button>
                         </div>
-                        <button className='signin_button' disabled={!isFormValid}>Log In</button>
-                        <a className="forgot_password"href="#">Forgot your password?</a>
-                        <a className="need_help" href="#">Need help?</a>
+                        <button className='signin_button' disabled={!isFormValid}>Đăng nhập</button>
+                        <a className="forgot_password" href="#">Quên mật khẩu?</a>
+                        <a className="need_help" href="#">Cần giúp đỡ?</a>
                     </form>
                 </div>
             </div>
