@@ -21,9 +21,8 @@ function SignInPage() {
 
     const handlePasswordChange = (e) => {
         setPassword(e.target.value)
-        handlePasswordErrorMessage(e.target.value)
-        setIsFormValid(username.trim() !== "" && e.target.value.trim() !== "" && e.target.value.length >= 8)
-
+        handlePasswordErrorMessage(e.target.value) //Start check after blur event
+        setIsFormValid(username.trim() !== "" && e.target.value.trim() !== "" && e.target.value.length >= 8) //Set isFormValid to true only if username and password are not empty and password has at least 8 characters
     }
 
     const handlePasswordBlur = () => {
@@ -41,7 +40,7 @@ function SignInPage() {
     }
 
     const handlePasswordErrorMessage = (pass) => {
-        if (pass.trim() === "" && errorMessage !== "") {
+        if (pass.trim() === "" && errorMessage !== "") { //Check if password is empty after blur
             setErrorMessage("Password là bắt buộc.");
         } else if (pass.length < 8 && pass.trim() !== "" && errorMessage !== "") {
             setErrorMessage("Password phải có ít nhất 8 ký tự.");
@@ -76,7 +75,7 @@ function SignInPage() {
         }
     }
 
-    function handleSignUpClick() {
+    const handleSignUpClick = () => {
         navigate("/signup");
     }
 
@@ -91,9 +90,9 @@ function SignInPage() {
                 <div>
                     <form className="signin_form" action="" onSubmit={LoginButtonClick}>
                         <div className="signin_form_inputbox">
-                            <input type="text" placeholder='Username' value={username} onChange={handleUsernameChange} autoFocus />
+                            <input type="text" placeholder='Tên người dùng' value={username} onChange={handleUsernameChange} autoFocus />
                             <div className="password_box">
-                                <input type={showPassword ? "text" : "password"} placeholder='Password' value={password} onChange={handlePasswordChange} onBlur={handlePasswordBlur} />
+                                <input type={showPassword ? "text" : "password"} placeholder='Mật khẩu' value={password} onChange={handlePasswordChange} onBlur={handlePasswordBlur} />
                                 <button type="button" className="eye_button" onClick={togglePasswordVisibility}>{showPassword ? <EyeOffIcon className="eye_icon" /> : <EyeIcon className="eye_icon" />}</button>
                             </div>
                             <p className="error_message">{errorMessage}</p>
