@@ -1,5 +1,5 @@
 import "./Dashboard.css";
-import NavBar from "../mainlayouts/NavBar";"../mainlayouts/Navbar.jsx";
+import NavBar from "../components/NavBar";
 
 const Dashboard = () => {
     
