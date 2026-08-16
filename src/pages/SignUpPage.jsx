@@ -4,7 +4,7 @@ import EyeIcon from "../assets/eye.svg?react"
 import "./SignUpPage.css"
 import { useNavigate } from "react-router-dom"
 
-function SignUpPage() {
+const SignUpPage = () => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")

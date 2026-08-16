@@ -6,7 +6,7 @@ import { AuthContext } from "../contexts/AuthContext.jsx"
 import { useContext } from "react"
 import { useNavigate } from "react-router-dom"
 
-function SignInPage() {
+const SignInPage = () => {
     const [showPassword, setShowPassword] = useState(false)
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
