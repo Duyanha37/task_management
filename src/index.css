@@ -13,3 +13,16 @@ body {
 #root {
     min-height: 100vh;
 }
+
+:root {
+    --bg-color: #f7f8f9;
+    --navbar-bg: #ffffff;
+    --text-main: #292d34;
+    --text-muted: #7c828d;
+    --border-color: #e9ebf0;
+    --primary-color: #7b68ee;
+    --blue: #00a2ff;
+    --header-height: 56px;
+    --sidebar-width: 260px;
+    --hover-bg: #f0f1f3;
+}

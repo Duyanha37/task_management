@@ -1,10 +1,10 @@
-import "./SignInPage.css"
-import EyeOffIcon from "../assets/eye-off.svg?react"
-import EyeIcon from "../assets/eye.svg?react"
-import { useState } from "react"
-import { AuthContext } from "../contexts/AuthContext.jsx"
-import { useContext } from "react"
-import { useNavigate } from "react-router-dom"
+import "./SignInPage.css";
+import EyeOffIcon from "../assets/eye-off.svg?react";
+import EyeIcon from "../assets/eye.svg?react";
+import { useState } from "react";
+import { AuthContext } from "../contexts/AuthContext.jsx";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SignInPage = () => {
     const [showPassword, setShowPassword] = useState(false)
@@ -64,7 +64,7 @@ const SignInPage = () => {
             if (response.ok) {
                 console.log("Login successful");
                 setAccessToken(data.accesstoken);
-                navigate("/home");
+                navigate("/app");
 
             } else {
                 console.log("Login failed:", data.error);

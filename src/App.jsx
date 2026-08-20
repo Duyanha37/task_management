@@ -1,8 +1,9 @@
-import './App.css'
-import SignInPage from './pages/SignInPage'
-import SignUpPage from './pages/SignUpPage'
-import Dashboard from './pages/Dashboard'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import './App.css';
+import SignInPage from './pages/SignInPage';
+import SignUpPage from './pages/SignUpPage';
+import Dashboard from './pages/Dashboard';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import MainLayouts from './layouts/mainlayouts';
 
 function App() {
 
@@ -11,7 +12,9 @@ function App() {
       <Routes>
         <Route path="/" element={<SignInPage />} />
         <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/home" element={<Dashboard />} />
+        <Route element={<MainLayouts />}>
+          <Route path="/app" element={<Dashboard />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   )

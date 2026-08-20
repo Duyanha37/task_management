@@ -1,8 +1,8 @@
-import { useState } from "react"
-import EyeOffIcon from "../assets/eye-off.svg?react"
-import EyeIcon from "../assets/eye.svg?react"
-import "./SignUpPage.css"
-import { useNavigate } from "react-router-dom"
+import { useState } from "react";
+import EyeOffIcon from "../assets/eye-off.svg?react";
+import EyeIcon from "../assets/eye.svg?react";
+import "./SignUpPage.css";
+import { useNavigate } from "react-router-dom";
 
 const SignUpPage = () => {
     const [username, setUsername] = useState("")
