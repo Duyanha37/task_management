@@ -64,7 +64,7 @@ const SignInPage = () => {
             if (response.ok) {
                 console.log("Login successful");
                 setAccessToken(data.accesstoken);
-                navigate("/app");
+                navigate("/dashboard");
 
             } else {
                 console.log("Login failed:", data.error);

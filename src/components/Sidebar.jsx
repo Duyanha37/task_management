@@ -1,21 +1,37 @@
-import { useState } from "react";
-import "./Sidebar.css";
-import SidebarOpenIcon from "../assets/sidebaropen.svg?react";
-import SidebarCloseIcon from "../assets/sidebarclose.svg?react";
+import './Sidebar.css';
+import DashBoardIcon from '../assets/dashboard.svg?react';
+import TaskIcon from '../assets/task.svg?react';
+import TeamIcon from '../assets/team.svg?react';
+import CalendarIcon from '../assets/calendar.svg?react';
+import { useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
-    const [isCollapsed, setIsCollapsed] = useState(false);
+    const navigate = useNavigate();
+
+    const handleNavigation = (path) => {
+        navigate(path);
+    }
 
     return (
-        <div className="sidebar">
-            <button className="collapse-button" onClick={() => setIsCollapsed(!isCollapsed)}>{isCollapsed ? <SidebarCloseIcon className="sidebar-icon" /> : <SidebarOpenIcon className="sidebar-icon" />}</button>
-            <button className="sidebar-button">Dashboard</button>
-            <button className="sidebar-button">Projects</button>
-            <button className="sidebar-button">Calendar</button>
-            <button className="sidebar-button">Teams</button>
-            <button className="sidebar-button">Reports</button>
-        </div>
+       <div className="sidebar">
+            <button onClick={() => handleNavigation('/dashboard')}>
+                <DashBoardIcon className="sidebar-icon"/>
+                <span className="sidebar-text">Dashboard</span>
+            </button>
+            <button onClick={() => handleNavigation('/tasks')}>
+                <TaskIcon className="sidebar-icon"/>
+                <span className="sidebar-text">Tasks</span>
+            </button>
+            <button onClick={() => handleNavigation('/teams')}>
+                <TeamIcon className="sidebar-icon"/>
+                <span className="sidebar-text">Teams</span>
+            </button>
+            <button onClick={() => handleNavigation('/calendar')}>
+                <CalendarIcon className="sidebar-icon"/>
+                <span className="sidebar-text">Calendar</span>
+            </button>
+       </div>
     );
-};
+}
 
 export default Sidebar;

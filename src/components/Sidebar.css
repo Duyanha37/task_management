@@ -1,49 +1,38 @@
-.sidebar-container {
-    width: var(--sidebar-width);
-    height: 100vh;
-    background-color: var(--navbar-bg);
-    border-right: 1px solid var(--border-color);
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: var(--header-height);
-    left: 0;
-    transition: transform 0.3s ease-in-out;
-}
-
-.sidebar{
+.sidebar {
     width: 52px;
     height: 100vh;
-    background-color: var(--navbar-bg);
-    border-right: 1px solid var(--border-color);
+    background: var(--navbar-bg);
     display: flex;
     flex-direction: column;
-    border: 1px solid var(--border-color);
+    margin-top: 2px;
+    border-radius: 10px;
 }
 
-.collapse-button{
-    height: 62px;
+.sidebar button{
+    border: none;
+    background: none;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    background-color: var(--navbar-bg);
-    border: none;
-}
-
-.sidebar-button{
+    margin-top: 10px;
     height: 62px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     cursor: pointer;
-    background-color: var(--navbar-bg);
-    border: none;
+    transition: all 0.2s ease-in-out;
 }
 
 .sidebar-icon{
-    width: 20px;
-    height: 20px;
-    margin: 0 auto;
-    display: block;
+    width: 24px;
+    height: 24px;
+    color: var(--text-muted);
+}
+
+.sidebar-text{
+    font-size: 10px;
+    color: var(--text-muted);
+}
+
+.sidebar button:hover{
+    background: var(--hover-bg);
+    border-radius: 10px;
 }
