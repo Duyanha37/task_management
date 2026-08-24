@@ -3,14 +3,6 @@ import './Navbar.css';
 const Navbar = () => {
     return (
         <header className="top-nav">
-            <div className="workspace-header">
-                <div className="workspace-avatar">{}</div>
-                <div className="workspace-name">{}</div>
-                <svg className="icon-sm dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M6 9l6 6 6-6" />
-                </svg>
-            </div>
-
             <div className="search-container">
                 <div className="search-bar">
                     <svg className="icon-sm text-gray" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

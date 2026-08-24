@@ -3,7 +3,7 @@ import SignInPage from './pages/SignInPage';
 import SignUpPage from './pages/SignUpPage';
 import Dashboard from './pages/Dashboard';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import MainLayouts from './layouts/mainlayouts';
+import MainLayouts from './layouts/Mainlayouts';
 
 function App() {
 

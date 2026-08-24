@@ -1,38 +1,327 @@
-.sidebar {
-    width: 52px;
-    height: 100vh;
-    background: var(--navbar-bg);
-    display: flex;
-    flex-direction: column;
-    margin-top: 2px;
-    border-radius: 10px;
+/* ═══════════════════════════════════════════════════════════
+   SIDEBAR CSS
+   - Màu sắc đồng bộ thiết kế (tím #7b68ee, đen xám #1a1c20)
+   - Animation mượt mà cho icon và submenu (grid-template-rows)
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  --sidebar-mini-w:     52px;
+  --sidebar-exp-w:      260px;
+  --sidebar-dark-bg:    #15171a;   /* Nền tối mini sidebar (gần đen) */
+  --sidebar-exp-bg:     #ffffff;   /* Nền trắng expanded */
+  --sidebar-border:     #e9ebf0;
+  
+  /* Bảng màu chính */
+  --primary:            #7b68ee;   /* Bright Purple */
+  --primary-light:      #f0ebff;
+  --blue:               #00a2ff;
+  --red:                #ff4d4d;
+  
+  --text-main:          #292d34;
+  --text-muted:         #7c828d;
+  
+  --icon-mini:          #87909e;
+  --icon-mini-hover:    #ffffff;
+  --icon-exp:           #87909e;
+  
+  --transition-ease:    cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-dur:     0.28s;
 }
 
-.sidebar button{
-    border: none;
-    background: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 10px;
-    height: 62px;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
+.sidebar-wrapper {
+  display: flex;
+  height: 100vh;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 100;
+  font-family: 'Inter', sans-serif;
 }
 
-.sidebar-icon{
-    width: 24px;
-    height: 24px;
-    color: var(--text-muted);
+/* ════════════════════════════════════════════════════
+   MINI SIDEBAR
+   ════════════════════════════════════════════════════ */
+.mini-sidebar {
+  width: var(--sidebar-mini-w);
+  background-color: var(--sidebar-dark-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 0;
+  gap: 8px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
 }
 
-.sidebar-text{
-    font-size: 10px;
-    color: var(--text-muted);
+/* Ánh sáng tím nhạt ở góc trên cùng để khớp theme màu */
+.mini-sidebar-bg-glow {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(123, 104, 238, 0.15) 0%, rgba(21, 23, 26, 0) 70%);
+  pointer-events: none;
 }
 
-.sidebar button:hover{
-    background: var(--hover-bg);
-    border-radius: 10px;
+.mini-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 48px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--icon-mini);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 1;
 }
+
+.mini-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--icon-mini-hover);
+}
+
+.mini-btn__icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mini-btn__icon svg { width: 100%; height: 100%; }
+
+.mini-btn__label {
+  font-size: 9px;
+  font-weight: 500;
+  margin-top: 3px;
+}
+
+.mini-btn--toggle { margin-bottom: 8px; }
+.sidebar-expanded .mini-btn--toggle {
+  opacity: 0; pointer-events: none;
+}
+
+
+/* ════════════════════════════════════════════════════
+   EXPANDED SIDEBAR
+   ════════════════════════════════════════════════════ */
+.expanded-sidebar {
+  width: 0;
+  overflow: hidden;
+  background-color: var(--sidebar-exp-bg);
+  border-right: 1px solid var(--sidebar-border);
+  display: flex;
+  flex-direction: column;
+  transition: width var(--transition-dur) var(--transition-ease),
+              opacity var(--transition-dur) var(--transition-ease),
+              visibility var(--transition-dur) var(--transition-ease);
+  opacity: 0;
+  visibility: hidden;
+  white-space: nowrap;
+}
+
+.sidebar-expanded .expanded-sidebar {
+  width: var(--sidebar-exp-w);
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ── Header ─────────────────────────────────────── */
+.exp-header {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px 0 16px;
+  border-bottom: 1px solid var(--sidebar-border);
+  gap: 8px;
+  flex-shrink: 0;
+}
+.exp-header__title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-main);
+  flex: 1;
+}
+
+/* Nút Create */
+.btn-create {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--sidebar-border);
+  background: #fff;
+  color: var(--text-main);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-create:hover {
+  background: #f4f5f7; border-color: #c5c9d6;
+}
+
+/* Nút Close */
+.btn-close-sidebar {
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  border: none; border-radius: 6px;
+  background: transparent;
+  color: var(--icon-exp);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-close-sidebar:hover {
+  background: #f0f1f3; color: var(--text-main);
+}
+.btn-close-sidebar svg { width: 14px; height: 14px; }
+
+
+/* ── Navigation Items & Triangle Swap ────────────── */
+.exp-nav {
+  padding: 16px 12px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.nav-section-wrapper {
+  margin-bottom: 2px;
+}
+
+.exp-nav__item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-main);
+  font-weight: 500;
+  font-size: 13px;
+  cursor: pointer;
+  gap: 12px;
+  transition: background 0.2s, color 0.2s;
+}
+.exp-nav__item:hover {
+  background: #f4f5f7;
+}
+.exp-nav__item.active-section {
+  color: var(--primary);
+}
+
+.exp-nav__icon-wrapper {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.exp-nav__icon {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--icon-exp);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.exp-nav__item.active-section .exp-nav__icon {
+  color: var(--primary);
+}
+.exp-nav__item:hover .exp-nav__icon {
+  color: var(--text-main);
+}
+
+/* Trạng thái ẩn/hiện icon gốc và icon tam giác */
+.exp-nav__icon.show {
+  opacity: 1;
+  transform: scale(1);
+}
+.exp-nav__icon.hide {
+  opacity: 0;
+  transform: scale(0.5);
+  pointer-events: none;
+}
+
+/* Icon Tam giác (quay xuống khi mở) */
+.triangle-icon {
+  width: 12px; height: 12px;
+  transition: transform 0.2s ease;
+}
+.triangle-icon.open {
+  transform: rotate(90deg); /* Quay xuống */
+}
+
+
+/* ── Sub Menu Animation (Smooth Height) ──────────── */
+.sub-nav-wrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.sub-nav-wrapper.is-open {
+  grid-template-rows: 1fr;
+}
+
+.sub-nav-inner {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.sub-nav-item {
+  padding: 8px 12px 8px 40px;
+  font-size: 13px;
+  color: var(--text-muted);
+  text-decoration: none;
+  border-radius: 6px;
+  margin: 0 4px 2px 4px;
+  transition: background 0.2s, color 0.2s;
+}
+.sub-nav-item:hover {
+  background-color: var(--primary-light);
+  color: var(--primary);
+}
+
+/* ════════════════════════════════════════════════════
+   POPUP CREATE (Giữ nguyên cấu trúc đã tạo)
+   ════════════════════════════════════════════════════ */
+.create-wrapper { position: relative; }
+.create-popup {
+  position: absolute; top: calc(100% + 8px); left: 0;
+  width: 280px; background: #fff;
+  border: 1px solid var(--sidebar-border); border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08); z-index: 999;
+  animation: popup-in .2s var(--transition-ease) both;
+}
+@keyframes popup-in {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.create-popup__search { padding: 10px; border-bottom: 1px solid var(--sidebar-border); }
+.create-popup__search input { width: 100%; border: none; outline: none; font-size: 13px; }
+.create-popup__body { max-height: 350px; overflow-y: auto; padding: 8px 0; }
+.create-section { padding: 0 6px; }
+.create-section__label { font-size: 10px; color: var(--text-muted); padding: 4px 8px; margin: 0; text-transform: uppercase; }
+.create-section__divider { height: 1px; background: var(--sidebar-border); margin: 4px 0; }
+.create-item {
+  display: flex; align-items: flex-start; width: 100%; padding: 6px 8px;
+  border: none; border-radius: 6px; background: transparent; cursor: pointer; gap: 8px;
+}
+.create-item:hover { background: #f4f5f7; }
+.create-item__icon { font-size: 14px; width: 16px; flex-shrink: 0; }
+.create-item__info { display: flex; flex-direction: column; flex: 1; text-align: left;}
+.create-item__name { font-size: 13px; color: var(--text-main); }
+.create-item__desc { font-size: 11px; color: var(--text-muted); }
+.create-item__shortcut { font-size: 11px; color: var(--text-muted); }
+.create-item__badge { font-size: 9px; color: #ef4444; background: #fee2e2; padding: 2px 6px; border-radius: 12px; }
+.create-popup__footer { display: flex; border-top: 1px solid var(--sidebar-border); padding: 8px; gap: 8px; }
+.popup-footer-btn { flex: 1; padding: 6px; border: 1px solid var(--sidebar-border); border-radius: 6px; background: #fff; font-size: 11px; cursor: pointer; }
+.popup-footer-btn:hover { background: #f4f5f7; }

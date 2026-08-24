@@ -12,60 +12,6 @@
     padding-right: 24px;
 }
 
-.workspace-header {
-    width: var(--sidebar-width);
-    height: 100%;
-    display: flex;
-    align-items: center;
-    padding: 0 16px;
-    border-right: 1px solid var(--border-color);
-    cursor: pointer;
-    flex-shrink: 0;
-    transition: background-color 0.2s ease;
-}
-
-.workspace-header:hover {
-    background-color: var(--hover-bg);
-}
-
-.workspace-avatar {
-    width: 24px;
-    height: 24px;
-    background-color: #e5f4ff;
-    color: var(--blue);
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 10px;
-    font-weight: 700;
-    margin-right: 8px;
-    transition: transform 0.2s ease;
-}
-
-.workspace-header:hover .workspace-avatar {
-    transform: scale(1.05);
-}
-
-.workspace-name {
-    color: var(--text-main);
-    font-weight: 600;
-    font-size: 14px;
-    flex: 1;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.dropdown-icon {
-    color: var(--text-muted);
-    transition: color 0.2s ease;
-}
-
-.workspace-header:hover .dropdown-icon {
-    color: var(--text-main);
-}
-
 .search-container {
     flex: 1;
     padding-left: 24px;
