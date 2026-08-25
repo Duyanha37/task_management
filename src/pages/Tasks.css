@@ -1,0 +1,25 @@
+.grid-container{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.header-text{
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--text-main);
+}
+
+.grid-item{
+    background-color: var(--bg-main);
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+    margin: 10px 5px 5px 5px;
+}
