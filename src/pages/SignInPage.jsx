@@ -21,8 +21,8 @@ const SignInPage = () => {
 
     const handlePasswordChange = (e) => {
         setPassword(e.target.value)
-        handlePasswordErrorMessage(e.target.value) //Start check after blur event
-        setIsFormValid(username.trim() !== "" && e.target.value.trim() !== "" && e.target.value.length >= 8) //Set isFormValid to true only if username and password are not empty and password has at least 8 characters
+        handlePasswordErrorMessage(e.target.value) //Bắt đầu kiểm tra sau khi unfocus
+        setIsFormValid(username.trim() !== "" && e.target.value.trim() !== "" && e.target.value.length >= 8) //Đặt isFormValid dựa trên điều kiện của username và password đầy đủ
     }
 
     const handlePasswordBlur = () => {
@@ -40,7 +40,7 @@ const SignInPage = () => {
     }
 
     const handlePasswordErrorMessage = (pass) => {
-        if (pass.trim() === "" && errorMessage !== "") { //Check if password is empty after blur
+        if (pass.trim() === "" && errorMessage !== "") { //Kiểm tra password sau khi bỏ focus
             setErrorMessage("Password là bắt buộc.");
         } else if (pass.length < 8 && pass.trim() !== "" && errorMessage !== "") {
             setErrorMessage("Password phải có ít nhất 8 ký tự.");
@@ -58,6 +58,7 @@ const SignInPage = () => {
                 headers: {
                     "Content-Type": "application/json"
                 },
+                credentials: "include",
                 body: JSON.stringify({ username, password })
             });
             const data = await response.json();
@@ -67,8 +68,8 @@ const SignInPage = () => {
                 navigate("/dashboard");
 
             } else {
-                console.log("Login failed:", data.error);
                 setErrorMessage(data.error);
+                throw new Error(data.error);   
             }
         } catch (error) {
             console.error("Error during login:", error);

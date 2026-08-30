@@ -7,7 +7,7 @@ export default function AuthProvider({ children }) {
     useEffect(() => {
         const getAccessToken = async () => {
         try {
-            const response = await fetch("http://localhost:3000/api/auth/token", {
+            const response = await fetch("http://localhost:3000/api/accounts/refresh", {
                 method: "POST",
                 credentials: "include",
             });

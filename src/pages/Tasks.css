@@ -65,7 +65,7 @@
 
 .task-item{
     border-bottom: 1px solid var(--border-color);
-    padding: 12px 0px;
+    height: 40px;
     transition: var(--trans-02);
     margin-top: 8px;
 }

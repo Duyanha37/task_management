@@ -1,5 +1,10 @@
 import './Tasks.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { AuthContext } from '../contexts/AuthContext.jsx';
+import { useContext } from 'react';
+import TodoIcon from '../assets/circle-todo.svg?react';
+import InProgressIcon from '../assets/circle-inprogress.svg?react';
+import DoneIcon from '../assets/circle-done.svg?react';
 
 const Assigned = () =>{
     return (
@@ -13,21 +18,19 @@ const Assigned = () =>{
     );
 };
 
-const MyTasks = ({tasklist, handleTodoClick, handleInProgressClick, handleCompletedClick, isTodo, isInProgress, isCompleted}) =>{
+const MyTasks = ({tasklist, handleTodoClick, handleInProgressClick, handleCompletedClick, status}) =>{
     return (
         <div className="grid-item">
             <div className="tab-header">
                 <span className="header-text">My Tasks</span>
             </div>
             <div className="mytasks-tab">
-                <button onClick={handleTodoClick} className={`mytasks-tab ${isTodo ? 'active' : ''}`}>To Do</button>
-                <button onClick={handleInProgressClick} className={`mytasks-tab ${isInProgress ? 'active' : ''}`}>In Progress</button>
-                <button onClick={handleCompletedClick} className={`mytasks-tab ${isCompleted ? 'active' : ''}`}>Completed</button>
+                <button onClick={handleTodoClick} className={`mytasks-tab ${status === 'todo' ? 'active' : ''}`}>To Do</button>
+                <button onClick={handleInProgressClick} className={`mytasks-tab ${status === 'inprogress' ? 'active' : ''}`}>In Progress</button>
+                <button onClick={handleCompletedClick} className={`mytasks-tab ${status === 'completed' ? 'active' : ''}`}>Completed</button>
             </div>
             <div className="mytasks-content">
-                {tasklist.map((task) => (
-                    <Task key={task.id} {...task} />
-                ))}
+                <h1>Số task: {tasklist.length}</h1>
             </div>
         </div>
     );
@@ -44,38 +47,54 @@ const Task = (item) => {
 };
 
 const Tasks = () => {
+    const [status, setStatus] = useState('todo');
+    const [tasklist, setTasklist] = useState([]);
+    const { accessToken } = useContext(AuthContext);
 
-    const [isTodo, setIsTodo] = useState(false);
-    const [isInProgress, setIsInProgress] = useState(false);
-    const [isCompleted, setIsCompleted] = useState(false);
+    useEffect(() => {
+        console.log('Access Token:', accessToken); // Log the access token for debugging
+         const fetchTasks = async () => {
+            try {
+                const response = await fetch('http://localhost:3000/api/tasks', {
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                });
+                console.log('Response status:', response.status); // Log the response status for debugging
+                const data = await response.json();
+                if (response.ok) {
+                    setTasklist(data.tasks);
+                    console.log('Fetched tasks successfully:');
+                }
+                else {
+                    console.error('Failed to fetch tasks:', data.error, accessToken);
+                }                
+            } catch (error) {
+                console.error('Error fetching tasks:', error);
+            }
+        };
+        
+        if (!accessToken) return;       
+
+        fetchTasks();
+    }, [accessToken]);
 
     const handleTodoClick = () => {
-        setIsTodo(true);
-        setIsInProgress(false);
-        setIsCompleted(false);
+        setStatus('todo');
     }
 
     const handleInProgressClick = () => {
-        setIsTodo(false);
-        setIsInProgress(true);
-        setIsCompleted(false);
+        setStatus('inprogress');
     }
 
     const handleCompletedClick = () => {
-        setIsTodo(false);
-        setIsInProgress(false);
-        setIsCompleted(true);
+        setStatus('completed');
     }
 
-    const tasklist = [
-        { id: 1, title: 'Task 1', description: 'Description for Task 1' },
-        { id: 2, title: 'Task 2', description: 'Description for Task 2' },
-        { id: 3, title: 'Task 3', description: 'Description for Task 3' },
-    ];
   return (
     <div className="tasks">
         <div className="grid-container">
-            <MyTasks tasklist={tasklist} handleTodoClick={handleTodoClick} handleInProgressClick={handleInProgressClick} handleCompletedClick={handleCompletedClick} isTodo={isTodo} isInProgress={isInProgress} isCompleted={isCompleted} />
+            <MyTasks tasklist={tasklist} handleTodoClick={handleTodoClick} handleInProgressClick={handleInProgressClick} handleCompletedClick={handleCompletedClick} status={status} />
             <Assigned />
         </div>
     </div>
