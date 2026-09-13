@@ -11,9 +11,10 @@ export default function AuthProvider({ children }) {
                 method: "POST",
                 credentials: "include",
             });
+            const data = await response.json();
             if (response.ok) {
-                const data = await response.json();
-                setAccessToken(data.accessToken);
+                console.log("Access token refreshed");
+                setAccessToken(data.accesstoken);
             }
         } catch (error) {
             console.error("Error fetching access token:", error);
