@@ -78,7 +78,7 @@
     transition: background-color var(--trans-02);
     cursor: pointer;
     position: relative;
-    min-height: 40px;
+    height: 40px;
 }
 
 .task-item:hover {
