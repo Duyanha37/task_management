@@ -1,7 +1,7 @@
 import "./SignInPage.css";
 import EyeOffIcon from "../assets/eye-off.svg?react";
 import EyeIcon from "../assets/eye.svg?react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AuthContext } from "../contexts/AuthContext.jsx";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
@@ -12,9 +12,15 @@ const SignInPage = () => {
     const [password, setPassword] = useState("")
     const [errorMessage, setErrorMessage] = useState("")
     const [isFormValid, setIsFormValid] = useState(false)
-    const { setAccessToken } = useContext(AuthContext);
+    const { accessToken, setAccessToken } = useContext(AuthContext);
     const navigate = useNavigate();
 
+    useEffect(() => {
+        if (accessToken) {
+            navigate("/dashboard");
+        }
+    }, [accessToken, navigate]);
+    
     const handleUsernameChange = (e) => {
         setUsername(e.target.value)
     }
